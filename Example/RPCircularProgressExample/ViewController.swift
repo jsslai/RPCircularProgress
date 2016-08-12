@@ -33,7 +33,7 @@ class ViewController: UIViewController {
 
     lazy private var thinFilledIndeterminate: RPCircularProgress = {
         let progress = RPCircularProgress()
-        progress.innerTintColor = UIColor.redColor()
+        progress.innerTintColor = UIColor.red()
         progress.thicknessRatio = 0.2
         progress.indeterminateDuration = 0.5
         return progress
@@ -143,7 +143,7 @@ private extension ViewController {
         // You can update progress while being indeterminate if you'd like
         thinProgress.updateProgress(0.4, duration: 5)
         thinProgress.enableIndeterminate()
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
+        DispatchQueue.main.after(when: DispatchTime.now() + Double(Int64(2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
             self.thinProgress.updateProgress(1, completion: {
                 self.thinProgress.enableIndeterminate(false)
             })
@@ -160,7 +160,7 @@ private extension ViewController {
         constrain(unroundedProgress, leftView: thinFilledProgress)
 
         unroundedProgress.updateProgress(0.4, initialDelay: 0.6, duration: 4)
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
+        DispatchQueue.main.after(when: DispatchTime.now() + Double(Int64(2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
             self.unroundedProgress.updateProgress(0.9)
         }
     }
@@ -173,7 +173,7 @@ private extension ViewController {
 
     // MARK: - Setup Helpers
 
-    func constrain(newView: UIView, topView: UIView? = nil) {
+    func constrain(_ newView: UIView, topView: UIView? = nil) {
         container.addSubview(newView)
         newView.snp_makeConstraints { (make) in
             make.size.equalTo(40)
@@ -186,7 +186,7 @@ private extension ViewController {
         }
     }
 
-    func constrain(newView: UIView, leftView: UIView) {
+    func constrain(_ newView: UIView, leftView: UIView) {
         container.addSubview(newView)
         newView.snp_makeConstraints { (make) in
             make.size.equalTo(40)
