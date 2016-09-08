@@ -307,7 +307,7 @@ private extension RPCircularProgress {
     class CompletionBlockObject: NSObject {
         var action: CompletionBlock
 
-        required init(action: CompletionBlock) {
+        required init(action: @escaping CompletionBlock) {
             self.action = action
         }
     }
